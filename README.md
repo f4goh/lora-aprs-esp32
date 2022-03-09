@@ -23,22 +23,25 @@ LORA
 	
 Operating frequency: 433/470MHz(433HMz version) /868M/915M(868MHz version)
 Transmit power: +20dBm
-Receive sensitivity :-139dBm@LoRa &62.5Khz&SF=12&146bps
--136dBm@LoRa &125Khz&SF=12&293bps
--118dBm@LoRa &125Khz&SF=6&9380bps
--123dBm@FSK&5Khz&1.2Kbps
+Receive sensitivity :
+-139dBm LoRa 62.5Khz SF=12 146bps
+-136dBm LoRa 125Khz SF=12 293bps
+-118dBm LoRa 125Khz SF=6 9380bps
+-123dBm FSK 5Khz 1.2Kbps
 Frequency error:+/-15KHz
 FIFO space :     64Byte
-Data rate :1.2K~300Kbps@FSK0.018K~37.5Kbps@LoRa        
+Data rate :1.2K~300Kbps FSK 0.018K 37.5Kbps
 
 Modulation Mode :FSK,GFSK,MSK,GMSK,LoRa TM,OOK
+
 Interface form : SPI
 
-Sleep current :0.2uA@SLEEP 1.5uA@IDLE
+
+Sleep current :0.2uA@SLEEP 1.5uA IDLE
 Operating temperature :-40°- +85°
 Digital RSSI function
 Automatic frequency correction
-Automatic gain control 
+Automatic gain control
 Low voltage detection and temperature sensor
 Fast wake-up and frequency hopping
 Highly configurable data packet handler
@@ -52,7 +55,6 @@ Save the configuration parameter data EEPROM Down
 With data backup battery
 There are LED signal indicator
 Default Baud Rate: 9600
-
  
 Power
 
@@ -61,16 +63,9 @@ Charging current 500mA
 Battery Input  3.7-4.2V
 Charge IC AXP192
 
- 
-
-Product Upgrade Content
-
-
-1.Add reverse battery protection module
-
- 
 
 More information:
+
 ## Lilygo [Lilygo](https://github.com/Xinyuan-LilyGO/LilyGO-T-Beam) 
 
 ## SoftRF [SoftRF](https://github.com/LilyGO/SoftRF ) 

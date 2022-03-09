@@ -10,15 +10,15 @@ Complementary files
 ***
 ## TTGO BOARD
 
-![TTGO](/TTGO_upper_lower.png  "TTGO BOARD")
+![TTGO](TTGO_upper_lower.png  "TTGO BOARD")
 
 ***
 
 ## TTGO PINOUT
 
-![TTGO](/TTGO_pinout.png  "TTGO PINOUT")
+![TTGO](TTGO_pinout.png  "TTGO PINOUT")
 
 ## TTGO mechanical dimension
 
-![TTGO](/TTGO_board.png  "mechanical dimension")
+![TTGO](TTGO_board.png  "mechanical dimension")
 
