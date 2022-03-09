@@ -16,4 +16,4 @@ Complementary files
 
 ## TTGO TEST with esp32 and RA02 (SX1278)
 
-![TTGO](cablage igate.png  "TTGO TEST")
+![TTGO](cablage_igate.png  "TTGO TEST")
