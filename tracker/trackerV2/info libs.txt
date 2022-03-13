@@ -1,0 +1,56 @@
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib search "header:axp20x.h"
+Found 1 libraries:
+
+AXP202X_Library
+===============
+#ID: 6657
+Arduino library for X-Power AXP202 chip. Arduino library for X-Power AXP202 chip. Tested with ESP32
+
+Keywords: communication
+Compatible frameworks: Arduino
+Compatible platforms: Espressif 32
+Authors: Lewis He
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib install 6657
+
+le@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib search "header:LoRa.h"
+Found 4 libraries:
+
+LoRa
+====
+#ID: 1167
+An Arduino library for sending and receiving data using LoRa radios. Supports Semtech SX1276/77/78/79 based boards/shields.
+
+Keywords: communication
+Compatible frameworks: Arduino
+Compatible platforms: Infineon XMC, Kendryte K210, GigaDevice GD32V, ASR Microelectronics ASR650x, Atmel AVR, Atmel SAM, Espressif 8266, Intel ARC32, Microchip PIC32, Nordic nRF51, ST STM32, Teensy, TI MSP430, TI TIVA, Espressif 32, Nordic nRF52, ST STM8, Atmel megaAVR, Logic Green boards, Logicrom Development Platform, Raspberry Pi RP2040, K1921VK, TI MSP432
+Authors: Sandeep Mistry
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib install 1167
+Library Storage: /home/ale/NetBeansProjects/ttgo/trackerV2/.pio/libdeps/ttgo-t-beam
+Library Manager: Installing id:1167
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Library Manager: LoRa @ 0.8.0 has been installed!
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib search "header:TinyGPS++.h"
+Found 1 libraries:
+
+TinyGPSPlus
+===========
+#ID: 1655
+A new, customizable Arduino NMEA parsing library
+
+Keywords: gps, nmea
+Compatible frameworks: Arduino
+Compatible platforms: Infineon XMC, Kendryte K210, GigaDevice GD32V, ASR Microelectronics ASR650x, Atmel AVR, Atmel SAM, Espressif 8266, Intel ARC32, Microchip PIC32, Nordic nRF51, ST STM32, Teensy, TI MSP430, TI TIVA, Espressif 32, Nordic nRF52, ST STM8, Atmel megaAVR, Logic Green boards, Logicrom Development Platform, Raspberry Pi RP2040, K1921VK, TI MSP432
+Authors: Mikal Hart
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib install 1655
+Library Storage: /home/ale/NetBeansProjects/ttgo/trackerV2/.pio/libdeps/ttgo-t-beam
+Library Manager: Installing id:1655
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Library Manager: TinyGPSPlus @ 1.0.3 has been installed!
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ 
+
