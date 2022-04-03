@@ -2,11 +2,17 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <df name="include">
-        <in>Position.h</in>
+      <df name="lib">
+        <df name="LoraAprs">
+          <in>LoraAprs.cpp</in>
+          <in>LoraAprs.h</in>
+        </df>
+        <df name="Position">
+          <in>Position.cpp</in>
+          <in>Position.h</in>
+        </df>
       </df>
       <df name="src">
-        <in>Position.cpp</in>
         <in>tracker.cpp</in>
       </df>
       <in>platformio.ini</in>
@@ -279,11 +285,15 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
-      <item path="include/Position.h" ex="false" tool="3" flavor2="0">
+      <item path="lib/LoraAprs/LoraAprs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lib/LoraAprs/LoraAprs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/Position/Position.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lib/Position/Position.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="platformio.ini" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Position.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tracker.cpp" ex="false" tool="1" flavor2="0">
       </item>

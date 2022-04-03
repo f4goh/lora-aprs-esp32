@@ -75,8 +75,8 @@ void Position::setAltitude(const float _alt) {
  * @return char* Le pdu APRS position 
  */
 char* Position::getPduAprs(bool compressed) {
-    char com[43];
-    char scom[33];
+    char com[60];
+    char scom[60];
     char salt[10];
     
     //exemple
@@ -89,10 +89,10 @@ char* Position::getPduAprs(bool compressed) {
     
     if (alt != 0){
         snprintf(salt, sizeof (salt), "/A=%06d", alt);
-        comment.toCharArray(scom, 33);
+        comment.toCharArray(scom, 60);
         snprintf(com, sizeof(com), "%s %s", salt, scom);
     }else{
-        comment.toCharArray(com, 43);
+        comment.toCharArray(com, 60);
     }
     
     if (compressed) {
@@ -109,8 +109,9 @@ char* Position::getPduAprs(bool compressed) {
 
         snprintf(pdu, sizeof (pdu), "%s:!%s%c%s%c%s", headerArray,slat, symboleTable, slong, symbole, com);
     }
-    pduLength=strlen(pdu);
+
     
+    pduLength=strlen(pdu);
     return pdu;
 }
 

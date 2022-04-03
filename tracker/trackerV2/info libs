@@ -52,5 +52,29 @@ Library Manager: Installing id:1655
 Downloading  [####################################]  100%
 Unpacking  [####################################]  100%
 Library Manager: TinyGPSPlus @ 1.0.3 has been installed!
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib search "header:console.h"
+
+Console
+=======
+#ID: 6893
+Small user console class for embedded systems based on arduino framework
+
+Keywords: console, serial, user-interface
+Compatible frameworks: Arduino
+Compatible platforms: Espressif 8266, ST STM32, Espressif 32
+Authors: Arkady Korotkevich
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ pio lib install 6893
+Library Storage: /home/ale/NetBeansProjects/ttgo/trackerV2/.pio/libdeps/ttgo-t-beam
+Library Manager: Installing id:6893
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Library Manager: Console @ 1.2.1 has been installed!
 ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/trackerV2$ 
+
+
+
+
+
 

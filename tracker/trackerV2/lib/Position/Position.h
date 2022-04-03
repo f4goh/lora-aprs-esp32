@@ -12,7 +12,7 @@
 #include <WString.h>
 #include <stdio.h>
 #include <math.h>
-
+#include <Arduino.h>
               //String _callsign = "",
               //
 
@@ -59,7 +59,7 @@ protected:
     float   longitude;
     char    symboleTable;
     char    symbole;
-    char    pdu[100];
+    char    pdu[150];
     int     pduLength;
     
     

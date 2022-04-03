@@ -3,14 +3,22 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
       <df name="include">
-        <in>Position.h</in>
-        <in>power_management.h</in>
       </df>
       <df name="lib">
+        <df name="LoraAprs">
+          <in>LoraAprs.cpp</in>
+          <in>LoraAprs.h</in>
+        </df>
+        <df name="Position">
+          <in>Position.cpp</in>
+          <in>Position.h</in>
+        </df>
+        <df name="power_management">
+          <in>power_management.cpp</in>
+          <in>power_management.h</in>
+        </df>
       </df>
       <df name="src">
-        <in>Position.cpp</in>
-        <in>power_management.cpp</in>
         <in>tracker.cpp</in>
       </df>
       <df name="test">
