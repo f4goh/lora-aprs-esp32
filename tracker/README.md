@@ -55,5 +55,7 @@ Comment is : hello
 >symbol >
 symbol is >
 >getpdu
+f4goh-5>APLT00,WIDE1-1:!4753.41N/00016.60E> -  _Bat.: 4.16V - Cur.:  0mA
+>exit
 ```
 
