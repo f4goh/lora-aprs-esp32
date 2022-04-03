@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html lang="en" class="">
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+        <title>Install Firmware</title>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+        <script
+            type="module"
+            src="https://unpkg.com/esp-web-tools@6.1.1/dist/web/install-button.js?module"
+        ></script>
+
+    </head>
+    <body>
+        <div id="prog">
+
+            <h1>Install Firmware</h1>
+
+            <div class="pick-variant">
+                <ol style='text-align:left'>
+                    <li>Connect the ESP device to your computer<br>using USB or serial-to-USB adapter<br></li>
+                    <li>Select the firmware variant suitable for<br>your device<br></li>
+                    <li>Hit "Install" and select the correct port<br>or find help if <a href="https://github.com/f4goh/Carte-shield-IOT" target='_blank' style='color:#aaa;'>no device found</a></li>
+                </ol>
+                <br>
+                <select>
+                    <optgroup label="Reset GPS">
+                        <option value="manifest/resetgps.json">Reset GPS</option>
+                    </optgroup>
+                    <optgroup label="Tracker">
+                        <option value="manifest/tracker.json">Tracker</option>
+                    </optgroup>
+                </select>
+                <br><br>
+                <p>
+                <esp-web-install-button id="inst">
+                    <i slot="unsupported">
+                        Your browser does not support Web Serial.<br>Open this page in Google Chrome or<br>Microsoft Edge instead
+                        <span class="not-supported-i hidden">(but not on your iOS device)</span>.
+                    </i>
+                </esp-web-install-button>
+                </p>
+            </div>
+            <div style='text-align:right;font-size:11px;'>                
+                <a href="https://esphome.github.io/esp-web-tools/" target='_blank' style='color:#aaa;'>ESP Installer powered by ESP Web Tools</a>
+            </div>
+            <script>
+                const selectEl = document.querySelector(".pick-variant select");
+                const installEl = document.querySelector("esp-web-install-button");
+                installEl.manifest = selectEl.value;
+                selectEl.addEventListener("change", () => {
+                    installEl.manifest = selectEl.value;
+                });
+            </script>
+    </body>
+</html>
+

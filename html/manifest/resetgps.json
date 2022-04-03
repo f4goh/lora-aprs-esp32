@@ -1,0 +1,16 @@
+{
+  "name": "Reset GPS 1.00",
+  "version": "2022.1.0-dev",
+  "home_assistant_domain": "lora aprs",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",      
+      "parts": [
+        { "path": "../firmwares/resetgps/bootloader.bin", "offset": 4096 },
+        { "path": "../firmwares/resetgps/tracker_partitions.bin", "offset": 32768 },
+        { "path": "../firmwares/resetgps/tracker_firmware.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
