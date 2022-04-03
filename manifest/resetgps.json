@@ -8,8 +8,8 @@
       "chipFamily": "ESP32",      
       "parts": [
         { "path": "../firmwares/resetgps/bootloader.bin", "offset": 4096 },
-        { "path": "../firmwares/resetgps/tracker_partitions.bin", "offset": 32768 },
-        { "path": "../firmwares/resetgps/tracker_firmware.bin", "offset": 65536 }
+        { "path": "../firmwares/resetgps/reset_partitions.bin", "offset": 32768 },
+        { "path": "../firmwares/resetgps/reset_firmware.bin", "offset": 65536 }
       ]
     }
   ]
