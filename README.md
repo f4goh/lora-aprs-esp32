@@ -2,7 +2,7 @@
 
 ## Project from [OE5BPA](https://github.com/lora-aprs) 
 
-## Automatic installation [firmwares] (https://f4goh.github.io/lora-aprs-esp32/index.html) 
+## Automatic installation [firmwares](https://f4goh.github.io/lora-aprs-esp32/index.html) 
 
 
 TTGO Product Features
