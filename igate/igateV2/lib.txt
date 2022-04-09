@@ -1,0 +1,21 @@
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/igateV2$ pio lib -g install 2978
+Library Storage: /home/ale/.platformio/lib
+Library Manager: Installing id:2978
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Library Manager: ESP8266 and ESP32 OLED driver for SSD1306 displays @ 4.3.0 has been installed!
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/igateV2$ 
+
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/igateV2$ pio lib -g install 11703
+Library Storage: /home/ale/.platformio/lib
+Library Manager: Installing id:11703
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Library Manager: ESP32Time @ 1.0.4 has been installed!
+ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/igateV2$ 
+
+
+pio lib install 1167
+
+pio lib install 6893
+
