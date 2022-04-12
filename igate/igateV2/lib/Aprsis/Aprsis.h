@@ -16,7 +16,6 @@
 
 #include <WiFi.h>
 #include <Arduino.h>
-#include <GestionWifi.h>
 #define TOOL_NAME "ESP32-APRS-IS"
 #define VERSION "1.0"
 #define MSG_MAX_LENGTH 100
@@ -30,7 +29,7 @@ public:
     Aprsis();
     Aprsis(const Aprsis& orig);
     virtual ~Aprsis();
-    bool setup(char* _ssid, char* _password,const String _user, const String _passcode,const String _latitude,const String _longitude,const String _message);
+    bool setup(const String _user,const String _passcode,const String _latitude,const String _longitude,const String _message);
 
     bool connect(const String server, const int port);
     bool connect(const String server, const int port, const String filter);
@@ -50,9 +49,11 @@ private:
     TaskHandle_t TaskHandle_Ait;
     static Aprsis* anchor;
     static void marshall(void *);
-    void AprsIsTask();
+    void aprsIsTask();
     bool _connect(const String server, const int port, const String login_line);
     bool sendBeacon();
+    void connexion();
+    
     String user;
     String passcode;
     String tool_name;
@@ -61,7 +62,6 @@ private:
     String latitude;
     String message;
     WiFiClient client;
-    GestionWifi gs;
     char msg[MSG_MAX_LENGTH];
     bool cnxState;
 };

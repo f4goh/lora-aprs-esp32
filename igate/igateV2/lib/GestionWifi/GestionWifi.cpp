@@ -14,6 +14,7 @@
 #include "GestionWifi.h"
 
 GestionWifi::GestionWifi() {
+     anchor = this;
 }
 
 GestionWifi::GestionWifi(const GestionWifi& orig) {
@@ -22,20 +23,29 @@ GestionWifi::GestionWifi(const GestionWifi& orig) {
 GestionWifi::~GestionWifi() {
 }
 
-bool GestionWifi::setup(char* _ssid, char* _password) {
-    ssid = _ssid;
-    password = _password;
-    WiFi.begin(ssid, password);
-    return connexion();
-}
-
-bool GestionWifi::reconnexion(){
-    WiFi.reconnect();
-    return connexion();
-}
-
-void GestionWifi::deconnexion(){
-    WiFi.disconnect();
+bool GestionWifi::setup(const char* _ssid, const char* _password, wifiMode _wMode) {
+    ssid = strdup(_ssid);
+    password = strdup(_password);
+    wMode = _wMode;
+    bool retCnx;
+    if (wMode == CLIENT) {
+        Serial.println("Client Wifi");
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(ssid, password);
+        retCnx = connexion();
+        BaseType_t retTsk = xTaskCreatePinnedToCore(GestionWifi::marshall, "gestion_wifi", 50000, NULL, 3, &TaskHandle_Gwt, tskNO_AFFINITY);
+        retCnx = ((retTsk == pdPASS) && retCnx) ? true : false;
+    } else {
+        Serial.println("Access point Wifi");
+        WiFi.mode(WIFI_AP);
+        retCnx = WiFi.softAP(ssid, password);
+        if (retCnx) {
+            Serial.print("[+] AP Created with IP Gateway ");
+            Serial.println(WiFi.softAPIP());
+            Serial.println("\n[*] Creating AP");
+        }
+    }
+    return retCnx;
 }
 
 
@@ -63,6 +73,29 @@ bool GestionWifi::connexion() {
     return ret;
 }
 
+void GestionWifi::marshall(void * parametres) {
+    anchor->checkWifiTask();
+}
 
+void GestionWifi::checkWifiTask() {
+    Serial.println("Tache Wifi en fonctionnement");
+    unsigned long currentMillis;
+    unsigned long previousMillis = 0;
+    while (1) {
+        vTaskDelay(1);
+        cnxState = false;
+        currentMillis = millis();
+        if ((WiFi.status() != WL_CONNECTED) && (currentMillis - previousMillis >= TIME_RECONNECT)) {
+            Serial.print(millis());
+            Serial.println("Reconnecting to WiFi...");
+            WiFi.disconnect();
+            WiFi.reconnect();
+            previousMillis = currentMillis;
+        }
+    }
+}
+
+
+GestionWifi* GestionWifi::anchor = NULL;
 
 

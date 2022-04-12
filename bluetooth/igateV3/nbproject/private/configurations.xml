@@ -9,25 +9,13 @@
           <in>Afficheur.cpp</in>
           <in>Afficheur.h</in>
         </df>
-        <df name="AprsDroidTcp">
-          <in>AprsDroidTcp.cpp</in>
-          <in>AprsDroidTcp.h</in>
-        </df>
-        <df name="Aprsis">
-          <in>Aprsis.cpp</in>
-          <in>Aprsis.h</in>
-        </df>
-        <df name="GestionWifi">
-          <in>GestionWifi.cpp</in>
-          <in>GestionWifi.h</in>
+        <df name="AprsDroid">
+          <in>AprsDroid.cpp</in>
+          <in>AprsDroid.h</in>
         </df>
         <df name="LoraAprs">
           <in>LoraAprs.cpp</in>
           <in>LoraAprs.h</in>
-        </df>
-        <df name="Position">
-          <in>Position.cpp</in>
-          <in>Position.h</in>
         </df>
       </df>
       <df name="src">

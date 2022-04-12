@@ -15,7 +15,4 @@ Library Manager: ESP32Time @ 1.0.4 has been installed!
 ale@ale-System-Product-Name:~/NetBeansProjects/ttgo/igateV2$ 
 
 
-pio lib install 1167
-
-pio lib install 6893
 

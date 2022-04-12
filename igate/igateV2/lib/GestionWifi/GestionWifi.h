@@ -16,8 +16,13 @@
 
 #include <WiFi.h>
 #include <Arduino.h>
-#define TIMEOUT 5000
+#define TIMEOUT 5*1000
+#define TIME_RECONNECT 30*1000
 
+enum wifiMode{
+    ACCES_POINT,
+    CLIENT
+};
 
 class GestionWifi {
 public:
@@ -25,18 +30,23 @@ public:
     GestionWifi(const GestionWifi& orig);
     virtual ~GestionWifi();
     
-    bool setup(char* _ssid,char* _password);
-    bool reconnexion();
-    void deconnexion();    
+    bool setup(const char* _ssid,const char* _password, wifiMode _wMode);
     bool connexion();
     
 
 private:
+    TaskHandle_t TaskHandle_Gwt;
+    static GestionWifi* anchor;
+    static void marshall(void *);
+    void checkWifiTask();
     char *ssid;
     char *password;
     IPAddress ip;
     IPAddress subnet;
     IPAddress gateway;
+    bool cnxState;
+    wifiMode wMode;
+    
 
 };
 

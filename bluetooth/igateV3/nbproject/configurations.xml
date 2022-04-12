@@ -2,27 +2,6 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <df name="lib">
-        <df name="Afficheur">
-          <in>Afficheur.cpp</in>
-          <in>Afficheur.h</in>
-        </df>
-        <df name="AprsDroidTcp">
-          <in>AprsDroidTcp.cpp</in>
-          <in>AprsDroidTcp.h</in>
-        </df>
-        <df name="Aprsis">
-          <in>Aprsis.cpp</in>
-          <in>Aprsis.h</in>
-        </df>
-        <df name="GestionWifi">
-          <in>GestionWifi.cpp</in>
-          <in>GestionWifi.h</in>
-        </df>
-      </df>
-      <df name="src">
-        <in>main.cpp</in>
-      </df>
       <in>platformio.ini</in>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -56,8 +35,8 @@
           <cTool>
             <incDir>
               <pElem>src</pElem>
-              <pElem>/home/ale/NetBeansProjects/ttgo/igateV2/include</pElem>
-              <pElem>/home/ale/NetBeansProjects/ttgo/igateV2/src</pElem>
+              <pElem>/home/ale/NetBeansProjects/ttgo/igateV3/include</pElem>
+              <pElem>/home/ale/NetBeansProjects/ttgo/igateV3/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_update</pElem>
@@ -121,6 +100,8 @@
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/fb_gfx</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/cores/esp32</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/variants/ttgo-lora32-v21new</pElem>
+              <pElem>/home/ale/.platformio/lib/ESP32Time</pElem>
+              <pElem>/home/ale/.platformio/lib/ESP8266 and ESP32 OLED driver for SSD1306 displays/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/AzureIoT/src</pElem>
@@ -172,8 +153,8 @@
           <ccTool>
             <incDir>
               <pElem>src</pElem>
-              <pElem>/home/ale/NetBeansProjects/ttgo/igateV2/include</pElem>
-              <pElem>/home/ale/NetBeansProjects/ttgo/igateV2/src</pElem>
+              <pElem>/home/ale/NetBeansProjects/ttgo/igateV3/include</pElem>
+              <pElem>/home/ale/NetBeansProjects/ttgo/igateV3/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_update</pElem>
@@ -237,6 +218,8 @@
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/fb_gfx</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/cores/esp32</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/variants/ttgo-lora32-v21new</pElem>
+              <pElem>/home/ale/.platformio/lib/ESP32Time</pElem>
+              <pElem>/home/ale/.platformio/lib/ESP8266 and ESP32 OLED driver for SSD1306 displays/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src</pElem>
               <pElem>/home/ale/.platformio/packages/framework-arduinoespressif32/libraries/AzureIoT/src</pElem>
@@ -291,25 +274,7 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
-      <item path="lib/Afficheur/Afficheur.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="lib/Afficheur/Afficheur.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/AprsDroidTcp/AprsDroidTcp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="lib/AprsDroidTcp/AprsDroidTcp.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/Aprsis/Aprsis.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="lib/Aprsis/Aprsis.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lib/GestionWifi/GestionWifi.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="lib/GestionWifi/GestionWifi.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="platformio.ini" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
