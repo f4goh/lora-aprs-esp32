@@ -34,7 +34,7 @@ bool Aprsis::setup(const String _user, const String _passcode,const String _lati
   longitude =_longitude;
   latitude=_latitude;
   message=_message;
-  BaseType_t ret=xTaskCreatePinnedToCore(Aprsis::marshall, "gestion_aprsis", 50000, NULL, 3, &TaskHandle_Ait, tskNO_AFFINITY);
+  BaseType_t ret=xTaskCreatePinnedToCore(Aprsis::marshall, "gestion_aprsis", 10000, NULL, 2, &TaskHandle_Ait, 1);
   return (ret==pdPASS) ? true : false;
 }
 
@@ -68,12 +68,16 @@ bool Aprsis::_connect(const String server, const int port, const String login_li
         return false;
       }
     }
-  }
+  }  
   return true;
 }
 
 bool Aprsis::connected() {
   return client.connected();
+}
+
+void Aprsis::setRssi(int _rssi){
+    rssi=_rssi;    
 }
 
 bool Aprsis::sendMessage(const String message) {
@@ -163,18 +167,39 @@ void Aprsis::aprsIsTask(){
         if (xQueueReceive(queueMsg, msg, 0) == pdPASS) { //0 au lieu de portMAX_DELAY = non bloquant
             Serial.println("msg aprsis queue");
             Serial.println(msg);
-            strMsg=String(msg)+ "\n\r";
+            strMsg=String(msg)+ " RSSI:"+String(rssi)+  " dBm\n\r";
             if(!sendMessage(strMsg)){
                 Serial.println("error sending pdu");
                 cnxState = false; 
             }
         }
-        strMsg = getMessage();          //non testé
+        strMsg = getMessage();
         if (strMsg.length() > 0) {
             Serial.println(strMsg); 
         }
     }
 }
+
+String Aprsis::passCode(String call){
+    call.toUpperCase();
+    int id=call.indexOf('-');
+    if (id!=-1){
+        call=call.substring(0,id);    
+    }
+    int hash=0x73e2;
+    int i=0;
+    int len=call.length();
+    while (i<len){
+        hash^=(int) call.charAt(i)<<8;
+        hash^=(int) call.charAt(i+1);
+        i+=2;
+    }
+    hash&=0x7fff;    
+    
+    return String(hash);
+}
+
+
 
 QueueHandle_t Aprsis::queueMsg = xQueueCreate(3, sizeof (msg));
 Aprsis* Aprsis::anchor = NULL;
@@ -183,5 +208,4 @@ Aprsis* Aprsis::anchor = NULL;
  * pour plus tard peut être...
  vTaskSuspend( xHandle );
  vTaskResume( xHandle );
- 
- */
+  */

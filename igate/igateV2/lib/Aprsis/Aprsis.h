@@ -41,8 +41,8 @@ public:
     String getMessage();
     String getAPRSMessage();
     bool getCnxState();
-    
-
+    String passCode(String call);
+    void setRssi(int _rssi);
     static QueueHandle_t queueMsg;
     
 private:
@@ -61,6 +61,7 @@ private:
     String longitude;
     String latitude;
     String message;
+    int rssi;
     WiFiClient client;
     char msg[MSG_MAX_LENGTH];
     bool cnxState;

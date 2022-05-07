@@ -8,6 +8,7 @@
         <df name="Afficheur">
           <in>Afficheur.cpp</in>
           <in>Afficheur.h</in>
+          <in>images.h</in>
         </df>
         <df name="AprsDroidTcp">
           <in>AprsDroidTcp.cpp</in>
@@ -24,6 +25,10 @@
         <df name="LoraAprs">
           <in>LoraAprs.cpp</in>
           <in>LoraAprs.h</in>
+        </df>
+        <df name="Menu">
+          <in>Menu.cpp</in>
+          <in>Menu.h</in>
         </df>
         <df name="Position">
           <in>Position.cpp</in>

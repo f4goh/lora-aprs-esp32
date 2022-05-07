@@ -33,6 +33,8 @@ public:
     bool setup(const char* _ssid,const char* _password, wifiMode _wMode);
     bool connexion();
     
+    bool getCnxState();
+    String getIP();
 
 private:
     TaskHandle_t TaskHandle_Gwt;

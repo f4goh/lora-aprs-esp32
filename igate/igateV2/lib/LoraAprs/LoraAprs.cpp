@@ -54,7 +54,7 @@ void LoraAprs::setup(){
   Serial.println("LoRa init done!");
   //msg.reserve(100);
   //Serial.println(msg.size()));
-  xTaskCreatePinnedToCore(LoraAprs::marshall, "lora_rx", 50000, NULL, 3, &TaskHandle_Rx, tskNO_AFFINITY); // creation de la tache 
+  xTaskCreatePinnedToCore(LoraAprs::marshall, "lora_rx", 10000, NULL, 3, &TaskHandle_Rx, 1); // creation de la tache 
 }
 
 void LoraAprs::send(char* msg,int length){

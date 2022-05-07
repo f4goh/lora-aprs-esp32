@@ -34,6 +34,8 @@ public:
     bool setup();
     void send(char* msg);
     int getPduLength();
+    bool getCnxState();
+    
     static QueueHandle_t queueRx;
 
 private:
@@ -46,8 +48,7 @@ private:
     WiFiServer server= WiFiServer(SERVER_PORT);
     WiFiClient remoteClient;
     
-  
-    
+   
     char msg[MSG_MAX_LENGTH];
     int     pduLength;
 

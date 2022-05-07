@@ -25,7 +25,7 @@ AprsDroidTcp::~AprsDroidTcp() {
 
 bool AprsDroidTcp::setup() {
     server.begin();
-    BaseType_t ret = xTaskCreatePinnedToCore(AprsDroidTcp::marshall, "aprsdroid", 50000, NULL, 3, &TaskHandle_Rxbt, tskNO_AFFINITY);
+    BaseType_t ret = xTaskCreatePinnedToCore(AprsDroidTcp::marshall, "aprsdroid", 10000, NULL, 3, &TaskHandle_Rxbt, 0);
     return (ret == pdPASS) ? true : false;
 }
 
@@ -45,9 +45,16 @@ void AprsDroidTcp::CheckForConnections()
     {
       Serial.println("Connection accepted");
       remoteClient = server.available();
-      
     }
   }
+}
+
+bool AprsDroidTcp::getCnxState(){
+    bool ret=false;
+    if (remoteClient.connected()){
+        ret=true;
+    }
+    return ret;
 }
 
 void AprsDroidTcp::send(char* msg) {
