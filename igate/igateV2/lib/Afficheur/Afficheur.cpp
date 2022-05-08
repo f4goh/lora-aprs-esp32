@@ -9,7 +9,6 @@
  * Author: ale
  * 
  * Created on 7 avril 2022, 19:54
-
  */
 
 #include "Afficheur.h"
@@ -18,29 +17,22 @@
 // Address 0x3c on SDA and SCL
 
 
-Afficheur::Afficheur()
-//
+Afficheur::Afficheur() :
+frameCount(2),
+overlaysCount(1),
+display(SSD1306Wire(0x3c, SDA, SCL, GEOMETRY_128_64)),
+ui(OLEDDisplayUi(&display)),
+frames{Afficheur::drawFrame1, Afficheur::drawFrame2},
+overlays{Afficheur::msOverlay},
+call(CALLSIGN),
+rssi(0),
+compteurTrame(0),
+wifiCnx(false),
+aprsIsCnx(false),
+disRssi(false),
+cnxError(false)
 {
-  anchor = this;
-  call="F4KMN";
-  rssi=0;
-  compteurTrame=0;
-  pass="";
-  wifiCnx=false;
-  aprsIsCnx=false;
-  overlaysCount = 1;
-  frameCount = 2;
-  disRssi=false;
-  cnxError=false;
- }
-
-
-Afficheur::~Afficheur() {
-    
-}
-
-void Afficheur::setup() {
-    
+  anchor = this;  
   ui.setActiveSymbol(activeSymbol);
   ui.setInactiveSymbol(inactiveSymbol);
   ui.setIndicatorPosition(BOTTOM);
@@ -52,26 +44,22 @@ void Afficheur::setup() {
   ui.setFrames(frames, frameCount);
   //ui.disableAutoTransition();
   ui.init();
+  ui.disableIndicator();
   display.flipScreenVertically();
   
   xTaskCreatePinnedToCore(Afficheur::marshall, "afficheur", 10000, NULL, 2, &TaskHandle_Aff, 1); // creation de la tache 
+ }
 
+
+Afficheur::~Afficheur() {
+    
 }
+
 
 void Afficheur::setErrorCnx(bool _cnxError){
     cnxError=_cnxError;
 }
 
-
-
-/**
- * test function
- * @param msg String message to display
- */
-
-void Afficheur::setPass(String message) {
-    pass=message;    
-}
 
 /**
  * update connexion state

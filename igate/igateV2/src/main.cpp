@@ -1,9 +1,9 @@
 /* 
  * File:   main.cpp
- * Author: ale
- * Igate not finished
+ * Author: F4GOH - KF4GOH
  * Created on 6 avril 2022, 13:14
- LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32
+ * todo :
+ * digipeater
  */
 #include <Arduino.h>
 #include <LoraAprs.h>
@@ -11,7 +11,6 @@
 #include <GestionWifi.h>
 #include <Aprsis.h>
 #include <AprsDroidTcp.h>
-#include <console.h>
 #include <Preferences.h>
 #include <Menu.h>               // Classe commandes via la console
 
@@ -45,7 +44,6 @@ void setup() {
     pinMode(LED, OUTPUT);
     lora.setup();
     afficheur = new Afficheur;
-    afficheur->setup();
     
     leMenu = new Menu;  // Menu de configuration
     leMenu->setup();
@@ -70,8 +68,7 @@ void setup() {
 
     } else { //tcp/ip on aprs.is internet enable
         Serial.println("wifi igate on internet");
-        String pass = is->passCode(configuration.getString("call"));        
-        afficheur->setPass(pass);
+        String pass = is->passCode(configuration.getString("call"));                
         Serial.println(pass);              
         ret = gsWifi->setup(configuration.getString("ssid").c_str(), configuration.getString("pass").c_str(), CLIENT);
         if (ret) {
@@ -126,8 +123,5 @@ void loop() {
     }
     delay(1);  
 }
-
-
-
 
 

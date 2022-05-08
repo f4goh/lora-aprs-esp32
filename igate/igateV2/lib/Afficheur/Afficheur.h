@@ -17,6 +17,7 @@
 #include "OLEDDisplayUi.h"
 #include "images.h"
 
+#define CALLSIGN "F4KMN"
 
 class Afficheur {
 public:
@@ -24,9 +25,6 @@ public:
     Afficheur();
     virtual ~Afficheur();
 
-    void setup();
-
-    void setPass(String message);
     void setCnxState(bool _wifiCnx,bool _aprsIsCnx);    
     void affiche(char* msg);
     void setRssi(int _rssi);
@@ -43,30 +41,28 @@ private:
     static void drawFrame2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y);
     static void msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state);
 
-    FrameCallback frames[2] = {Afficheur::drawFrame1, Afficheur::drawFrame2};
-
-    OverlayCallback overlays[1] = {Afficheur::msOverlay};
-    int overlaysCount;
-    int frameCount;
-    TaskHandle_t TaskHandle_Aff;
     
-    static Afficheur* anchor;
-
-    String pass;    
-    bool wifiCnx;
-    bool aprsIsCnx;
-    bool cnxError;
-    String call,latitude,longitude,comment;
-    int altitude;
+    int frameCount; // Nombre de pages à afficher
+    int overlaysCount;
+    SSD1306Wire display;
+    OLEDDisplayUi ui;
+    FrameCallback frames[2];
+    OverlayCallback overlays[1]; //affichage commun par dessus toutes les pages
+    String call;
     int rssi;
     uint8_t compteurTrame;
+    bool wifiCnx;
+    bool aprsIsCnx;
     bool disRssi;
-    bool disAlti;
+    bool cnxError;
     
-    SSD1306Wire display = SSD1306Wire(0x3c, SDA, SCL, GEOMETRY_128_64);
-    OLEDDisplayUi ui = OLEDDisplayUi(&display);
+    static Afficheur* anchor;
+    
+    TaskHandle_t TaskHandle_Aff;
+
+    String latitude,longitude,comment;
+    int altitude;
+    bool disAlti;
 };
-
-
 
 #endif /* AFFICHEUR_H */
