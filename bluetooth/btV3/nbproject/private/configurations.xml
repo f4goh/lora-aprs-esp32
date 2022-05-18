@@ -8,14 +8,27 @@
         <df name="Afficheur">
           <in>Afficheur.cpp</in>
           <in>Afficheur.h</in>
+          <in>images.h</in>
         </df>
         <df name="AprsDroid">
           <in>AprsDroid.cpp</in>
           <in>AprsDroid.h</in>
         </df>
+        <df name="DecodeAprs">
+          <in>DecodeAprs.cpp</in>
+          <in>DecodeAprs.h</in>
+        </df>
+        <df name="Digipeater">
+          <in>Digipeater.cpp</in>
+          <in>Digipeater.h</in>
+        </df>
         <df name="LoraAprs">
           <in>LoraAprs.cpp</in>
           <in>LoraAprs.h</in>
+        </df>
+        <df name="Menu">
+          <in>Menu.cpp</in>
+          <in>Menu.h</in>
         </df>
       </df>
       <df name="src">

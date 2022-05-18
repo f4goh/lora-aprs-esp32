@@ -18,20 +18,22 @@
 
 
 Afficheur::Afficheur() :
-frameCount(2),
+frameCount(1),
 overlaysCount(1),
 display(SSD1306Wire(0x3c, SDA, SCL, GEOMETRY_128_64)),
 ui(OLEDDisplayUi(&display)),
-frames{Afficheur::drawFrame1, Afficheur::drawFrame2},
+frames{Afficheur::drawFrame1, Afficheur::drawFrame2,Afficheur::drawFrame3},
 overlays{Afficheur::msOverlay},
-call(CALLSIGN),
 rssi(0),
 compteurTrame(0),
 btCnx(false),
 disRssi(false),
 cnxError(false)
 {
-  anchor = this;  
+  anchor = this;
+  memset(&report, '\0', sizeof(aprs));
+  strcpy(report.callSign,CALLSIGN);
+  
   ui.setActiveSymbol(activeSymbol);
   ui.setInactiveSymbol(inactiveSymbol);
   ui.setIndicatorPosition(BOTTOM);
@@ -42,8 +44,10 @@ cnxError(false)
   ui.setOverlays(overlays, overlaysCount);
   ui.setFrames(frames, frameCount);
   //ui.disableAutoTransition();
+  //ui.disableIndicator();
+  ui.disableAllIndicators();
   ui.init();
-  ui.disableIndicator();
+  
   display.flipScreenVertically();
   
   xTaskCreatePinnedToCore(Afficheur::marshall, "afficheur", 10000, NULL, 2, &TaskHandle_Aff, 1); // creation de la tache 
@@ -67,7 +71,8 @@ void Afficheur::setErrorCnx(bool _cnxError){
 
 
 void Afficheur::setCnxState(bool _btCnx) {
-    btCnx=_btCnx; 
+    btCnx=_btCnx;
+    
 }
 
 
@@ -84,41 +89,8 @@ void Afficheur::displayRssi(bool _disRssi){
   disRssi=_disRssi;  
 }
 
-/**
- * parse data to display
- * @param msg String message to display
- */
 
-void Afficheur::affiche(char* msg) {
-   //f4goh-7>APLT00,WIDE1-1:!4753.41N/00016.61E> Bat:3.98V/-102mA
-   //ou
-   //f4goh-7>APLT00,WIDE1-1:!4753.41N/00016.61E>/A=000246  Bat:3.84V/-107mA
-   String  s=String(msg);
-   int index,index2;   
-   index=s.indexOf('>');
-   call=s.substring(0, index);
-   index=s.indexOf(':');
-   latitude=s.substring(index+2, index+10);
-   longitude=s.substring(index+11, index+20);
-   
-   index2=s.indexOf("/A=");
-   if (index2>0){
-       altitude=s.substring(index2+3,index2+9).toInt()/3.28;
-       Serial.println(altitude);
-       comment=s.substring(index2+10, s.length());
-       disAlti=true;
-   }
-   else{
-       comment=s.substring(index+22, s.length());
-       disAlti=false;
-   }
-   
-   Serial.println(call);
-   Serial.println(latitude);
-   Serial.println(longitude);
-   Serial.println(comment); 
-   compteurTrame++;
-}
+
 
 /**
  * set new RSSI
@@ -152,7 +124,7 @@ void Afficheur::msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state) {
   display->setFont(ArialMT_Plain_10);
   display->setTextAlignment(TEXT_ALIGN_LEFT);
   text=anchor->btCnx ? "EN." : "DIS.";
-  text="BT "+text;
+  text="BLUETOOTH "+text;
   display->drawString(0, 0, text);
 }
 
@@ -162,33 +134,22 @@ void Afficheur::msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state) {
 
 void Afficheur::drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
     String msg;
-    if (anchor->call == "F4KMN") {
+    if (strcmp(anchor->report.callSign, CALLSIGN)==0) {
         display->setTextAlignment(TEXT_ALIGN_LEFT);
         display->drawXbm(x + 0, y + 20, TW_width, TW_height, TW_Logo_bits);
         display->setFont(ArialMT_Plain_24);
-        display->drawString(45 + x, y+25, anchor->call);
+        display->drawString(45 + x, y+25, anchor->report.callSign);
     } else {
         //display->setFont(ArialMT_Plain_10);
         display->setFont(ArialMT_Plain_16);
         display->setTextAlignment(TEXT_ALIGN_RIGHT);
         display->drawString(128 + x, 10 + y, String(anchor->compteurTrame));
         display->setTextAlignment(TEXT_ALIGN_LEFT);
-        display->drawString(0 + x, 10 + y, anchor->call);
-        display->drawString(0 + x, 26 + y, anchor->comment);
-        if (anchor->disAlti){
-            msg = String(anchor->altitude) + " m";
-            display->drawString(0 + x, 26 + 16 + y, msg);
-            if (anchor->disRssi) {
-                display->setTextAlignment(TEXT_ALIGN_RIGHT);
-                display->setFont(ArialMT_Plain_10);
-                msg = String(anchor->rssi) + " dBm";
-                display->drawString(128 + x, 26 + 20 + y, msg);
-            }
-        } else {
-            if (anchor->disRssi) {
+        display->drawString(0 + x, 10 + y,  anchor->report.callSign);
+        display->drawString(0 + x, 26 + y, anchor->report.comment);
+        if (anchor->disRssi) {
                 msg = "RSSI: " + String(anchor->rssi) + " dBm";
                 display->drawString(0 + x, 26 + 16 + y, msg);
-            }
         }
     }
 }
@@ -205,9 +166,55 @@ void Afficheur::drawFrame2(OLEDDisplay *display, OLEDDisplayUiState* state, int1
         display->drawString(64 + x, 20 + y, "ERROR");
     } else {
         display->setTextAlignment(TEXT_ALIGN_LEFT);
-        display->drawString(0 + x, 16 + y, anchor->latitude);
-        display->drawString(0 + x, 16 + 24 + y, anchor->longitude);
+        display->drawString(0 + x, 16 + y, anchor->report.latitude);
+        display->drawString(0 + x, 16 + 24 + y, anchor->report.longitude);
     }
+}
+
+/**
+ * display page 3 altitude course speed
+ */
+
+void Afficheur::drawFrame3(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
+    String msg;
+    display->setFont(ArialMT_Plain_16);
+    display->setTextAlignment(TEXT_ALIGN_LEFT);
+    if (anchor->report.withAltitude) {
+        msg = "Altitude " + String(anchor->report.altitudeMeters) + " m";
+        display->drawString(0 + x, 10 + y, msg);
+    }
+    if (anchor->report.withCourseSpeed) {
+        msg = "Course " + String(anchor->report.course) + " °";
+        display->drawString(0 + x, 26 + y, msg);
+        msg = "Speed " + String(anchor->report.course) + " kts";
+        display->drawString(0 + x, 26 + 16 + y, msg);
+    }
+}
+
+/**
+ * refresh data to display
+ * @param msg char * message parsed to display
+ */
+
+void Afficheur::refresh(aprs _report) {
+    compteurTrame++;
+    memcpy(&report, &_report, sizeof (aprs));
+    if ((report.withCourseSpeed) || (report.withAltitude)) {
+        frameCount = 3;
+    } else {
+        frameCount = 2;
+    }
+    ui.setFrames(frames, frameCount);
+    Serial.println(report.callSign);
+    Serial.println(report.latitude);
+    Serial.println(report.longitude);
+    Serial.println(report.symTableId);
+    Serial.println(report.symCode);
+    Serial.println(report.course);
+    Serial.println(report.speed);
+    Serial.println(report.altitude);
+    Serial.println(report.altitudeMeters);
+    Serial.println(report.comment);
 }
 
 Afficheur* Afficheur::anchor = NULL;

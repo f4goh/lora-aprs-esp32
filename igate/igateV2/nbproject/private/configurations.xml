@@ -18,6 +18,14 @@
           <in>Aprsis.cpp</in>
           <in>Aprsis.h</in>
         </df>
+        <df name="DecodeAprs">
+          <in>DecodeAprs.cpp</in>
+          <in>DecodeAprs.h</in>
+        </df>
+        <df name="Digipeater">
+          <in>Digipeater.cpp</in>
+          <in>Digipeater.h</in>
+        </df>
         <df name="GestionWifi">
           <in>GestionWifi.cpp</in>
           <in>GestionWifi.h</in>
@@ -29,10 +37,6 @@
         <df name="Menu">
           <in>Menu.cpp</in>
           <in>Menu.h</in>
-        </df>
-        <df name="Position">
-          <in>Position.cpp</in>
-          <in>Position.h</in>
         </df>
       </df>
       <df name="src">

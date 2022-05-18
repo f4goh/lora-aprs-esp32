@@ -58,10 +58,13 @@ void Menu::setup() {
     con->onCmd("latitude", _latitude_);
     con->onCmd("longitude", _longitude_);
     con->onCmd("comment", _comment_);
+    con->onCmd("digi", _digi_);
     con->onCmd("show", _config_);
     con->onCmd("raz", _raz_);
     con->onCmd("exit", _exit_);
     con->onCmd("internet", _internet_);
+    con->onCmd("server", _server_);
+    con->onCmd("port", _port_);
     con->onUnknown(_unknown);
     con->start();
 
@@ -76,6 +79,9 @@ void Menu::setup() {
         anchor->configuration->putString("longitude", "00000.00E");
         anchor->configuration->putString("comment", "LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32");
         anchor->configuration->putBool("internet", false);
+        anchor->configuration->putString("server", "euro.aprs2.net");
+        anchor->configuration->putInt("port", 14580);
+        anchor->configuration->putBool("digi", false);
         anchor->configuration->putBool("config", true);
     }
     anchor->configuration->end();
@@ -99,6 +105,9 @@ void Menu::_help_(ArgList& L, Stream& S) {
     S.println(F("Enable wifi for igate (aprs.fi)                : internet 1"));
     S.println(F("Enable local wifi Access Point for AprsDroid   : internet 0"));
     S.println(F("When disable igate, local wifi AP are enable"));
+    S.println(F("Set server                                     : server euro.aprs2.net"));
+    S.println(F("Set port                                       : port 14580"));
+    S.println(F("Set Digipeater enable (0 or 1)                 : digi 1"));
     S.println(F("Show configuration                             : show"));
     S.println(F("Reset default configuration                    : raz"));
     S.println(F("Exit menu                                      : exit"));
@@ -224,6 +233,9 @@ void Menu::_config_(ArgList& L, Stream& S) {
     Serial.printf("longitude is        : %s\n\r", anchor->configuration->getString("longitude").c_str());
     Serial.printf("Internet is         : %s\n\r", anchor->configuration->getBool("internet") ? "Enable" : "Disable");
     Serial.printf("TCP Access point is : %s\n\r", anchor->configuration->getBool("internet") ? "Disable" : "Enable");
+    Serial.printf("Server is           : %s\n\r", anchor->configuration->getString("server").c_str());
+    Serial.printf("Port is             : %d\n\r", anchor->configuration->getInt("port"));
+    Serial.printf("Digipeater is       : %s\n\r", anchor->configuration->getBool("digi") ? "Enable" : "Disable");
     Serial.printf("Comment is          : %s\n\r", anchor->configuration->getString("comment").c_str());
     anchor->configuration->end();
 }
@@ -248,6 +260,47 @@ void Menu::_internet_(ArgList& L, Stream& S) {
         anchor->configuration->end();
     }
 }
+
+void Menu::_server_(ArgList& L, Stream& S) {
+    String p;
+    bool ret;
+    p = L.getNextArg();
+    ret = anchor->acceptCmd(p, 3, 30);
+    if (ret == true) {
+        anchor->configuration->begin("igate", false);
+        S.printf("server is %s\n\r", p.c_str());
+        anchor->configuration->putString("server", p);
+        anchor->configuration->end();
+
+    }
+}
+
+void Menu::_port_(ArgList& L, Stream& S) {
+    String p;
+    bool ret;
+    p = L.getNextArg();
+    ret = anchor->acceptCmd(p, 2, 5);
+    if (ret == true) {
+        anchor->configuration->begin("igate", false);
+        S.printf("port is %s\n\r", p.c_str());      
+        anchor->configuration->putInt("port", p.toInt());
+        anchor->configuration->end();
+    }
+}
+
+void Menu::_digi_(ArgList& L, Stream& S) {
+    String p;
+    bool ret;
+    p = L.getNextArg();
+    ret = anchor->acceptCmd(p, 1, 1);
+    if (ret == true) {
+        anchor->configuration->begin("igate", false);
+        anchor->configuration->putBool("digi", (int8_t) p.toInt());
+        Serial.printf("Digipeater is : %s\n\r", anchor->configuration->getBool("digi") ? "Enable" : "Disable");
+        anchor->configuration->end();
+    }
+}
+
 
 Menu* Menu::anchor = NULL;
 

@@ -47,12 +47,11 @@ bool GestionWifi::setup(const char* _ssid, const char* _password, wifiMode _wMod
             Serial.println("\n[*] Creating AP");
         }
     }
-    cnxState=retCnx;
     return retCnx;
 }
 
-bool GestionWifi::getCnxState(){
-    return cnxState;
+bool GestionWifi::connected(){
+    return (WiFi.status() == WL_CONNECTED);
 }
 
 String GestionWifi::getIP(){
@@ -65,10 +64,14 @@ bool GestionWifi::connexion() {
     unsigned long startTime = millis();
     bool ret=false;
     
-    while (WiFi.status() != WL_CONNECTED && (millis() - startTime) <= TIMEOUT)
+    while (WiFi.status() != WL_CONNECTED && (millis() - startTime) < TIMEOUT)
     {
         delay(500);
         Serial.print(".");
+        if ((millis() - startTime) >= TIMEOUT) {
+            Serial.println("Resetting due to Wifi not connecting...");
+            ESP.restart();
+        }
     }
     if (WiFi.status() == WL_CONNECTED) {
         ip = WiFi.localIP();
@@ -91,18 +94,13 @@ void GestionWifi::marshall(void * parametres) {
 
 void GestionWifi::checkWifiTask() {
     Serial.println("Tache Wifi en fonctionnement");
-    unsigned long currentMillis;
-    unsigned long previousMillis = 0;
     while (1) {
         vTaskDelay(1);
         //cnxState = false;
-        currentMillis = millis();
-        if ((WiFi.status() != WL_CONNECTED) && (currentMillis - previousMillis >= TIME_RECONNECT)) {
-            Serial.print(millis());
+        if (WiFi.status() != WL_CONNECTED) {            
             Serial.println("Reconnecting to WiFi...");
-            WiFi.disconnect();
-            anchor->cnxState=WiFi.reconnect();
-            previousMillis = currentMillis;
+            WiFi.reconnect();
+            connexion();
         }
     }
 }

@@ -9,6 +9,10 @@
           <in>LoraAprs.cpp</in>
           <in>LoraAprs.h</in>
         </df>
+        <df name="Menu">
+          <in>Menu.cpp</in>
+          <in>Menu.h</in>
+        </df>
         <df name="Position">
           <in>Position.cpp</in>
           <in>Position.h</in>
@@ -19,7 +23,7 @@
         </df>
       </df>
       <df name="src">
-        <in>tracker.cpp</in>
+        <in>main.cpp</in>
       </df>
       <df name="test">
       </df>

@@ -40,7 +40,12 @@ public:
     void setDestination(String _destination);
     void setPath(String _path);
     void setAltitude(const float _alt);
+    void enableAltitude(bool _altEnable);
     void setSymbol(const char _symbole);
+    void setCourse(const int _course);
+    void setSpeed(const int _speed);
+    void enableCourseSpeed(bool _courseSpeedEnable);
+    
     
     
     int getPduLength();
@@ -65,9 +70,13 @@ protected:
     
 private:
 
-    int     alt;
-    String  comment;
-   
+    int alt;
+    int course;
+    int speed;
+    bool courseSpeedEnable;
+    bool altEnable;
+    String comment;
+    
     void latitude_to_comp_str();
     void longitude_to_comp_str();    
 };

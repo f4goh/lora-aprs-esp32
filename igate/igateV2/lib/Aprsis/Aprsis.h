@@ -19,9 +19,10 @@
 #define TOOL_NAME "ESP32-APRS-IS"
 #define VERSION "1.0"
 #define MSG_MAX_LENGTH 100
-#define APRS_SERVER "euro.aprs2.net"
-#define APRS_PORT 14580
+//#define APRS_SERVER "euro.aprs2.net"
+//#define APRS_PORT 14580
 #define BEACON_DELAY 15*60*1000  //15 minutes
+#define RECONNECT_DELAY 5*1000  //5 secondes
 
 
 class Aprsis {
@@ -29,7 +30,7 @@ public:
     Aprsis();
     Aprsis(const Aprsis& orig);
     virtual ~Aprsis();
-    bool setup(const String _user,const String _passcode,const String _latitude,const String _longitude,const String _message);
+    bool setup(const String _user,const String _passcode,const String _latitude,const String _longitude,const String _message,const String _server,const int _port);
 
     bool connect(const String server, const int port);
     bool connect(const String server, const int port, const String filter);
@@ -40,7 +41,7 @@ public:
 
     String getMessage();
     String getAPRSMessage();
-    bool getCnxState();
+   
     String passCode(String call);
     void setRssi(int _rssi);
     static QueueHandle_t queueMsg;
@@ -61,10 +62,11 @@ private:
     String longitude;
     String latitude;
     String message;
+    String serverAprs;
+    int portAprs;
     int rssi;
     WiFiClient client;
     char msg[MSG_MAX_LENGTH];
-    bool cnxState;
 };
 
 #endif /* APRSIS_H */

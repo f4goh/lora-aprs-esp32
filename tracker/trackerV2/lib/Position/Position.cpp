@@ -67,6 +67,23 @@ void Position::setAltitude(const float _alt) {
     alt = (int)(3.2809 * _alt);
 }
 
+void Position::setCourse(const int _course) {
+    course = _course;
+}
+
+void Position::setSpeed(const int _speed) {
+    speed = _speed;
+}
+
+void Position::enableAltitude(bool _altEnable) {
+    altEnable = _altEnable;
+}
+
+void Position::enableCourseSpeed(bool _courseSpeedEnable) {
+    courseSpeedEnable = _courseSpeedEnable;
+}
+
+
 
 /**
  * @brief Fabrique le PDU APRS position 
@@ -75,41 +92,42 @@ void Position::setAltitude(const float _alt) {
  * @return char* Le pdu APRS position 
  */
 char* Position::getPduAprs(bool compressed) {
-    char com[60];
-    char scom[60];
+    char com[50];
+    char scom[50];
     char salt[10];
-    
+    char scs[8];
     //exemple
-    //F4KMN-7>APLT00,WIDE1-1: !4753.41N/00016.61EO/A=000193 -  _Bat.: 4.19V - Cur.: 495mA !w>$!
-    
+    //f4goh-7>APLT00,WIDE1-1:!4753.41N/00016.61E>000/000/A=000220Bat:4.13V/ 0mA
+    memset(com, '\0', 50);
+    memset(scom, '\0', 50);
+    memset(salt, '\0', 10);
+    memset(scs, '\0', 8);
     char headerArray[50];
     String header;
     header=callsign+">"+destination+","+path;
     header.toCharArray(headerArray,50);
-    
-    if (alt != 0){
-        snprintf(salt, sizeof (salt), "/A=%06d", alt);
-        comment.toCharArray(scom, 60);
-        snprintf(com, sizeof(com), "%s %s", salt, scom);
-    }else{
-        comment.toCharArray(com, 60);
-    }
-    
-    if (compressed) {
 
+    if (courseSpeedEnable) {
+        snprintf(scs, sizeof (scs), "%03d/%03d", course, speed);
+        strcat(com, scs);
+    }
+    if (altEnable) {
+        snprintf(salt, sizeof (salt), "/A=%06d", alt);
+        strcat(com, salt);
+    }
+    comment.toCharArray(scom, 50);
+    strcat(com, scom);
+        
+    if (compressed) {
         latitude_to_comp_str();
         longitude_to_comp_str();
-
         snprintf(pdu, sizeof (pdu), "%s:!%c%s%s%c  T%s", headerArray,symboleTable, slat, slong, symbole, com);
     }
     else {
-
         latitude_to_str();
         longitude_to_str();
-
         snprintf(pdu, sizeof (pdu), "%s:!%s%c%s%c%s", headerArray,slat, symboleTable, slong, symbole, com);
     }
-
     
     pduLength=strlen(pdu);
     return pdu;

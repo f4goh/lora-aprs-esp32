@@ -15,6 +15,14 @@
           <in>Aprsis.cpp</in>
           <in>Aprsis.h</in>
         </df>
+        <df name="DecodeAprs">
+          <in>DecodeAprs.cpp</in>
+          <in>DecodeAprs.h</in>
+        </df>
+        <df name="Digipeater">
+          <in>Digipeater.cpp</in>
+          <in>Digipeater.h</in>
+        </df>
         <df name="GestionWifi">
           <in>GestionWifi.cpp</in>
           <in>GestionWifi.h</in>
@@ -302,6 +310,14 @@
       <item path="lib/Aprsis/Aprsis.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="lib/Aprsis/Aprsis.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/DecodeAprs/DecodeAprs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lib/DecodeAprs/DecodeAprs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/Digipeater/Digipeater.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lib/Digipeater/Digipeater.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lib/GestionWifi/GestionWifi.cpp" ex="false" tool="1" flavor2="0">
       </item>

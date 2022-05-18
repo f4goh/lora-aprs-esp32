@@ -17,7 +17,7 @@
 #include <WiFi.h>
 #include <Arduino.h>
 #define TIMEOUT 5*1000
-#define TIME_RECONNECT 30*1000
+//#define TIME_RECONNECT 10*1000
 
 enum wifiMode{
     ACCES_POINT,
@@ -33,7 +33,7 @@ public:
     bool setup(const char* _ssid,const char* _password, wifiMode _wMode);
     bool connexion();
     
-    bool getCnxState();
+    bool connected();
     String getIP();
 
 private:
@@ -46,7 +46,6 @@ private:
     IPAddress ip;
     IPAddress subnet;
     IPAddress gateway;
-    bool cnxState;
     wifiMode wMode;
     
 

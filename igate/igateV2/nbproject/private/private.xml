@@ -10,18 +10,23 @@
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Aprsis/Aprsis.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Position/Position.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/AprsDroidTcp/AprsDroidTcp.cpp</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/DecodeAprs/DecodeAprs.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/LoraAprs/LoraAprs.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Afficheur/Afficheur.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/LoraAprs/LoraAprs.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Afficheur/images.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Menu/Menu.h</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Digipeater/Digipeater.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/src/main.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Aprsis/Aprsis.cpp</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Digipeater/Digipeater.cpp</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/DecodeAprs/DecodeAprs.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Menu/Menu.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/platformio.ini</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Afficheur/Afficheur.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/Position/Position.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/AprsDroidTcp/AprsDroidTcp.h</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib.txt</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/GestionWifi/GestionWifi.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/igateV2/lib/GestionWifi/GestionWifi.h</file>
         </group>

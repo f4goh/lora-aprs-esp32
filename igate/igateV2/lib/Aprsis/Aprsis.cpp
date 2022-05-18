@@ -18,7 +18,6 @@ Aprsis::Aprsis()
     tool_name=TOOL_NAME;
     version=VERSION;
     anchor = this;
-    cnxState = false;
 }
 
 Aprsis::Aprsis(const Aprsis& orig) {
@@ -28,12 +27,14 @@ Aprsis::~Aprsis() {
 }
 
 
-bool Aprsis::setup(const String _user, const String _passcode,const String _latitude,const String _longitude,const String _message) {
+bool Aprsis::setup(const String _user, const String _passcode,const String _latitude,const String _longitude,const String _message,const String _server,const int _port) {
   user=_user;
   passcode=_passcode;
   longitude =_longitude;
   latitude=_latitude;
   message=_message;
+  serverAprs=_server;
+  portAprs=_port;
   BaseType_t ret=xTaskCreatePinnedToCore(Aprsis::marshall, "gestion_aprsis", 10000, NULL, 2, &TaskHandle_Ait, 1);
   return (ret==pdPASS) ? true : false;
 }
@@ -126,9 +127,6 @@ String Aprsis::getAPRSMessage() {
   return msg;
 }
 
-bool Aprsis::getCnxState(){
-    return cnxState;
-}
 
 void Aprsis::connexion() {
     bool ret;
@@ -136,14 +134,14 @@ void Aprsis::connexion() {
         Serial.println("Re init Connexion APRS..");
         client.stop();
     }
-    ret = connect(APRS_SERVER, APRS_PORT);
+    //ret = connect(APRS_SERVER, APRS_PORT);
+    ret = connect(serverAprs, portAprs);
     if (!ret) {
         Serial.println("pas de connexion au serveur aprs");
     } else {
         Serial.println("Connexion APRS ok");
         sendBeacon();
     }
-    cnxState = ret; 
 }
 
 void Aprsis::marshall(void * parametres) {
@@ -159,23 +157,27 @@ void Aprsis::aprsIsTask(){
     Serial.println("Tache APRS-IS en fonctionnement");
     while (1) {
         vTaskDelay(1);
-        if (cpt==BEACON_DELAY){            //envoie la position balise périodiquement
-            connexion();            
-            cpt=0;
+        if (cpt == BEACON_DELAY) { //envoie la position balise périodiquement
+            connexion();
+            cpt = 0;
         }
         cpt++;
-        if (xQueueReceive(queueMsg, msg, 0) == pdPASS) { //0 au lieu de portMAX_DELAY = non bloquant
-            Serial.println("msg aprsis queue");
-            Serial.println(msg);
-            strMsg=String(msg)+ " RSSI:"+String(rssi)+  " dBm\n\r";
-            if(!sendMessage(strMsg)){
-                Serial.println("error sending pdu");
-                cnxState = false; 
+        if (!connected()) {
+            connexion();
+            vTaskDelay(RECONNECT_DELAY);
+        } else {
+            if (xQueueReceive(queueMsg, msg, 0) == pdPASS) { //0 au lieu de portMAX_DELAY = non bloquant
+                Serial.println("msg aprsis queue");
+                Serial.println(msg);
+                strMsg = String(msg) + " RSSI:" + String(rssi) + " dBm\n\r";
+                if (!sendMessage(strMsg)) {
+                    Serial.println("error sending pdu");
+                }
             }
-        }
-        strMsg = getMessage();
-        if (strMsg.length() > 0) {
-            Serial.println(strMsg); 
+            strMsg = getMessage();
+            if (strMsg.length() > 0) {
+                Serial.println(strMsg);
+            }
         }
     }
 }

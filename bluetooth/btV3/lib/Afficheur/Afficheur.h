@@ -19,17 +19,55 @@
 
 #define CALLSIGN "F4KMN"
 
+typedef enum{
+    POSITION,    
+    WEATHER,
+    MESSAGE    
+} TYPE_APRS;
+
+
+#define CALL_LEN 10
+#define TIMESTAMP_LEN 6
+#define LATITUDE_LEN 8
+#define LONGITUDE_LEN 9
+#define ALTITUDE_LEN 6
+#define COURSE_LEN 3
+#define SPEED_LEN 3
+#define COMMENT_LEN 50
+
+
+typedef struct{
+    TYPE_APRS ta;
+    char callSign[CALL_LEN+1];
+    char timeStamp[TIMESTAMP_LEN+1];
+    char longitude[LONGITUDE_LEN+1];
+    char latitude[LATITUDE_LEN+1];
+    char altitude[ALTITUDE_LEN+1];
+    int  altitudeMeters;
+    char course[COURSE_LEN+1];
+    char speed[SPEED_LEN+1];
+    char comment[COMMENT_LEN];
+    char symTableId;
+    char symCode;
+    bool compressed;
+    bool withTimeStamp;
+    bool withAltitude;  
+    bool withCourseSpeed;  
+}aprs;
+
+
 class Afficheur {
 public:
 
     Afficheur();
     virtual ~Afficheur();
 
-    void setCnxState(bool _btCnx);    
-    void affiche(char* msg);
+    void setCnxState(bool _btCnx);        
     void setRssi(int _rssi);
     void displayRssi(bool _disRssi);
     void setErrorCnx(bool _cnxError);
+    void refresh(aprs report);
+    
     
 private:
 
@@ -39,6 +77,7 @@ private:
 
     static void drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y);
     static void drawFrame2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y);
+    static void drawFrame3(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y);
     static void msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state);
 
     
@@ -46,12 +85,11 @@ private:
     int overlaysCount;
     SSD1306Wire display;
     OLEDDisplayUi ui;
-    FrameCallback frames[2];
-    OverlayCallback overlays[1]; //affichage commun par dessus toutes les pages
-    String call;
+    FrameCallback frames[3];
+    OverlayCallback overlays[1]; //affichage commun par dessus toutes les pages    
     int rssi;
     uint8_t compteurTrame;
-    bool btCnx;
+    bool btCnx;    
     bool disRssi;
     bool cnxError;
     
@@ -59,9 +97,9 @@ private:
     
     TaskHandle_t TaskHandle_Aff;
 
-    String latitude,longitude,comment;
-    int altitude;
     bool disAlti;
+    aprs report;
+    
 };
 
 #endif /* AFFICHEUR_H */

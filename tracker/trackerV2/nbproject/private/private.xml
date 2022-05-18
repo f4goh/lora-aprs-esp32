@@ -10,10 +10,13 @@
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/Position/Position.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/LoraAprs/LoraAprs.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/platformio.ini</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/Menu/Menu.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/Position/Position.h</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/LoraAprs/LoraAprs.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/src/tracker.cpp</file>
             <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/.pio/libdeps/ttgo-t-beam/Console/src/console.h</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/info%20libs</file>
+            <file>file:/home/ale/NetBeansProjects/ttgo/trackerV2/lib/Menu/Menu.cpp</file>
         </group>
     </open-files>
 </project-private>
