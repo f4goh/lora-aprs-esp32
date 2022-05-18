@@ -1,7 +1,6 @@
 # Igate
 
-## Source Code [igate](https://github.com/lora-aprs/LoRa_APRS_iGate) 
-
+## Automatic installation [firmwares](https://f4goh.github.io/lora-aprs-esp32/index.html) 
 
 ***
 ## TTGO BOARD
@@ -101,7 +100,13 @@ Connexion APRS ok
 f4goh-1>APLG01:=4753.41NL00016.61E&LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32
 ```
 ***
-## APRSDroid ACCESS POINT CONFIG
+## APRSDroid in ACCESS POINT
+
+Be careful SSID and password ACCESS point same as Client Wifi
+
+```console
+Enable local wifi Access Point for AprsDroid   : internet 0
+```
 
 ![MAIN](configAPRSdroid/main_tcp-ip.jpg  "MAIN CNX")
 

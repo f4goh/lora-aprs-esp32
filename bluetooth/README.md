@@ -1,7 +1,6 @@
-# Igate
+# Bluetooth
 
-## Source Code [igate](https://github.com/lora-aprs/LoRa_APRS_iGate) 
-
+## Automatic installation [firmwares](https://f4goh.github.io/lora-aprs-esp32/index.html) 
 
 ***
 ## TTGO BOARD
@@ -9,11 +8,6 @@
 ![TTGO](ttgo.jpg  "TTGO BOARD")
 
 ***
-
-## TTGO TEST with esp32 and RA02 (SX1278)
-
-Bluetooth software recognize TTGO lora32 V1
-
 
 Serial monitor 115200 Bauds
 
@@ -63,6 +57,20 @@ bluetooth gate
 Tache RX Droid en fonctionnement
 Access point BT enable
 ```
+
+![TNC](configAPRSdroid/tnc.jpg  "TNC")
+
+![TEXTE](configAPRSdroid/texte_brut.jpg  "TEXTE")
+
+![BLUE](configAPRSdroid/bluetooth.jpg  "BLUE")
+
+![MAIN](configAPRSdroid/main_page.jpg  "MAIN CNX")
+
+![MAP](configAPRSdroid/map.jpg  "MAP")
+
+
+
+
 
 
 
