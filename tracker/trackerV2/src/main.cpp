@@ -152,7 +152,7 @@ void loop() {
     
     // display time and sync txing
     if (lectureGPS(1000)) {
-        
+        digitalWrite(LED, digitalRead(LED)^1);
         if (gps.time.isValid()) {
             if (gps.time.hour() < 10) Serial.print(F("0"));
             Serial.print(gps.time.hour());
@@ -232,8 +232,8 @@ void checkPosition() {
 void sendLora() {    
     checkPosition();
     Serial.println(pos.getPduAprs(configuration.getBool("setcomp")));
-    digitalWrite(LED, HIGH);
-    lora.send(pos.getPduAprs(configuration.getBool("setcomp")), pos.getPduLength());
     digitalWrite(LED, LOW);
+    lora.send(pos.getPduAprs(configuration.getBool("setcomp")), pos.getPduLength());
+    digitalWrite(LED, HIGH);
 }
 
