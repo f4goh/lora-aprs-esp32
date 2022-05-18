@@ -22,6 +22,9 @@ BoardConfig TTGO_LORA32_V1        ("TTGO_LORA32_V1",         eTTGO_LORA32_V1,   
 ![TTGO](cablage_igate.png  "TTGO TEST")
 
 
+![DISPLAY](display_oled/oled.jpg  "DISPLAY")
+
+
 Serial monitor 115200 Bauds
 
 ```console
