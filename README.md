@@ -1,9 +1,8 @@
 # LORA APRS with an esp32
 
-# Project from [OE5BPA](https://github.com/lora-aprs) 
-
 ## Automatic installation [firmwares](https://f4goh.github.io/lora-aprs-esp32/index.html) 
 
+Project redone from [OE5BPA](https://github.com/lora-aprs) 
 
 TTGO Product Features
 - ESP32
