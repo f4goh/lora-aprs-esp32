@@ -102,7 +102,8 @@ f4goh-1>APLG01:=4753.41NL00016.61E&LoRa iGATE : https://github.com/f4goh/lora-ap
 ***
 ## APRSDroid in ACCESS POINT
 
-Be careful SSID and password ACCESS point same as Client Wifi
+SSID is APRS Droid
+password is totototo
 
 ```console
 Enable local wifi Access Point for AprsDroid   : internet 0
