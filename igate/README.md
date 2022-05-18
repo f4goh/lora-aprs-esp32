@@ -100,7 +100,11 @@ connexion au serveur aprs
 Connexion APRS ok
 f4goh-1>APLG01:=4753.41NL00016.61E&LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32
 ```
+***
+## APRSDroid ACCESS POINT CONFIG
 
+![MAIN](configAPRSdroid/main_tcp-ip.jpg  "MAIN CNX")
 
+![IPADD](configAPRSdroid/ip_address_port.jpg  "MAIN CNX")
 
 
