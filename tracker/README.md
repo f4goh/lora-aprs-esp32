@@ -24,6 +24,11 @@ Complementary files
 
 ![TTGO](TTGO_board.png  "mechanical dimension")
 
+## TTGO dynamic model
+
+![TTGO](Platform_Model.png  "dynamic model")
+
+
 Serial monitor 115200 Bauds
 
 ```console
