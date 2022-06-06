@@ -26,7 +26,7 @@ Complementary files
 
 ## TTGO dynamic model
 
-![TTGO](platform_model.png  "dynamic model")
+![TTGO](Platform_Model.PNG  "dynamic model")
 
 
 Serial monitor 115200 Bauds
