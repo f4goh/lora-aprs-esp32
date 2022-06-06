@@ -51,34 +51,44 @@ Available commands
 Set new callsign                            : call f4goh-6
 Set frequency                               : freq 433775000
 Set car symbol                              : symbol >
+Set second txing                            : second 20
 Set new comment                             : comment hello
 Set Battery measurement in comment (0 or 1) : setbat 1
 Set altitude feild in pdu (0 or 1)          : setalt 1
 Set Course/Speed feild in pdu (0 or 1)      : setcs 1
 Set compression position (0 or 1)           : setcomp 1
+Set dynamic Platform Model                  : navmod portable
+                                              navmod stationary
+                                              navmod pedestrian
+                                              navmod automotive
+                                              navmod sea
+                                              navmod airborne1g
+                                              navmod airborne2g
+                                              navmod airborne4g
+                                              navmod wrist
+                                              navmod bike
 Show configuration                          : show
 Reset default configuration                 : raz
 Exit menu                                   : exit
 >show
-Call is                : f4kmn-12
-Symbol is              : O
-Frequency is           : 433775000
-Transmit at second     : 20
-Battery measurement is : Enable
-Altitude is            : Enable
-Course/Speed is        : Enable
-Compression is         : Disable
-Comment is             : hello
->>exit
+Call is                   : f4goh-9
+Symbol is                 : b
+Frequency is              : 433775000
+Transmit at second        : 20
+Battery measurement is    : Enable
+Altitude is               : Enable
+Course/Speed is           : Enable
+Compression is            : Disable
+Dynamic Platform Model is : airborne1g
+Comment is                : hello
+>exit
 >
  Console exit
-13:41:17
-13:41:18
-13:41:19
-13:41:20
-f4kmn-12>APLT00,WIDE1-1:!4753.41N/00016.61EO000/000/A=000260Bat:4.12V/ 0mA
-13:41:24
-13:41:25
-13:41:26
+Dynamic platform model changed successfully!
+The new dynamic model is: airborne1g
+09:00:20
+f4goh-9>APLT00,WIDE1-1:!4753.41N/00016.61Eb000/000/A=000249Bat:3.89V/585mA
+09:00:24
+09:00:25
 ```
 

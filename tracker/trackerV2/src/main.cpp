@@ -36,6 +36,11 @@
  * pio lib install 6893
  * Library Manager: Console @ 1.2.1 has been installed!
  * 
+ * #ID: 5746
+ * SparkFun u-blox Arduino Library
+ * pio lib install 5746
+ * SparkFun u-blox Arduino Library @ 1.8.11 has been installed!
+ * 
  * todo:
  * add optional ssd1306 display
  * 
@@ -50,6 +55,7 @@
 #include <LoraAprs.h>
 #include <Preferences.h>
 #include <Menu.h>  
+#include "SparkFun_Ublox_Arduino_Library.h"
 
 
 
@@ -74,6 +80,7 @@ LoraAprs lora;
 Preferences configuration;
 Menu *leMenu;
 
+SFE_UBLOX_GPS myGPS;
 
 
 Position pos("F4KMN-7","APLT00","WIDE1-1",48.010237, 0.206267, "Ballon", '/', 'O'); // icon ballon
@@ -87,6 +94,8 @@ void sendLora();
 void checkBattery();
 void checkPosition();
 void checkPdu();
+void updateDynamicPlatformModel(uint8_t model);
+void saveDynamicPlatformModel();
 
 
 void setup() {
@@ -122,6 +131,19 @@ void setup() {
   pos.setComment(configuration.getString("comment"));  
   pos.setSymbol(configuration.getChar("symbol"));    
   second=(int8_t) configuration.getChar("second");
+  
+  
+  if (myGPS.begin(serialGps) == true) //Connect to the Ublox module using serial
+  {
+        uint8_t model=configuration.getUChar("navmod");
+        if (model>0) model++; //see enum dynModel in SparkFun_Ublox_Arduino_Library.h
+        updateDynamicPlatformModel(model);
+  }
+  else
+  {
+    Serial.println(F("Ublox GPS not detected. Please check wiring. Run in portable mode."));
+  }
+  
 }
 
 // force txing with 'p' key on serial terminal or push button (middle of reset and off button)
@@ -237,3 +259,30 @@ void sendLora() {
     digitalWrite(LED, HIGH);
 }
 
+void updateDynamicPlatformModel(uint8_t model) {
+    
+    //writing
+    if (myGPS.setDynamicModel((dynModel) model) == false) // Set the dynamic model to PORTABLE
+    {
+        Serial.println(F("***!!! Warning: setDynamicModel failed !!!***"));
+    } else {
+        Serial.println(F("Dynamic platform model changed successfully!"));
+    }
+
+    
+    // Let's read the new dynamic model to see if it worked
+    uint8_t newDynamicModel = myGPS.getDynamicModel();
+    if (newDynamicModel == 255) {
+        Serial.println(F("***!!! Warning: getDynamicModel failed !!!***"));
+    } else {
+        if (newDynamicModel>0) newDynamicModel--;
+        Serial.print(F("The new dynamic model is: "));
+        Serial.println(leMenu->getDynModName(newDynamicModel));
+    }
+
+}
+
+//not used
+void saveDynamicPlatformModel(){
+    myGPS.saveConfigSelective(VAL_CFG_SUBSEC_NAVCONF);
+}

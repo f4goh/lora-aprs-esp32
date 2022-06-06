@@ -10,7 +10,9 @@
 Menu::Menu() :
 exitFlag(false),
 con(new Console()),
-configuration(new Preferences()) {
+configuration(new Preferences()),
+dynModelLst{"portable", "stationary", "pedestrian", "automotive", "sea", "airborne1g", "airborne2g", "airborne4g", "wrist", "bike"}
+{
     anchor = this;
 }
 
@@ -60,6 +62,7 @@ void Menu::setup() {
     con->onCmd("setalt", _setalt_);
     con->onCmd("setcs", _setcs_);
     con->onCmd("setcomp", _setcomp_);
+    con->onCmd("navmod", _navmod_);
     con->onCmd("show", _config_);
     con->onCmd("raz", _raz_);
     con->onCmd("exit", _exit_);
@@ -80,6 +83,7 @@ void Menu::setup() {
         anchor->configuration->putBool("setcs", false);
         anchor->configuration->putBool("setcomp", false);
         anchor->configuration->putBool("config", true);
+        anchor->configuration->putUChar("navmod", 0); //default portable
 
     }
     anchor->configuration->end();
@@ -96,11 +100,16 @@ void Menu::_help_(ArgList& L, Stream& S) {
     S.println(F("Set new callsign                            : call f4goh-6"));
     S.println(F("Set frequency                               : freq 433775000"));
     S.println(F("Set car symbol                              : symbol >"));
+    S.println(F("Set second txing                            : second 20"));
     S.println(F("Set new comment                             : comment hello"));
     S.println(F("Set Battery measurement in comment (0 or 1) : setbat 1"));
     S.println(F("Set altitude feild in pdu (0 or 1)          : setalt 1"));
     S.println(F("Set Course/Speed feild in pdu (0 or 1)      : setcs 1"));
     S.println(F("Set compression position (0 or 1)           : setcomp 1"));    
+    S.println(F("Set dynamic Platform Model                  : navmod portable"));
+            for (uint8_t  n = 1; n < NB_DYN_MODES; n++) {
+                S.printf("%53s%s\n\r", "navmod ",anchor->dynModelLst[n].c_str());
+            }
     S.println(F("Show configuration                          : show"));
     S.println(F("Reset default configuration                 : raz"));
     S.println(F("Exit menu                                   : exit"));
@@ -252,20 +261,53 @@ void Menu::_setcomp_(ArgList& L, Stream& S) {
     }
 }
 
+//portable, stationary, pedestrian, automotive, sea, airborne1g, airborne2g, airborne4g, wrist, bike
+
+void Menu::_navmod_(ArgList& L, Stream& S) {
+    String p;
+    uint8_t  n;    
+    bool ret;
+    uint8_t model = 0;
+    p = L.getNextArg();
+    ret = anchor->acceptCmd(p, 3, 10);
+    if (ret == true) {
+        ret = false;        
+        for (n = 0; n < NB_DYN_MODES; n++) {
+            if (p == anchor->dynModelLst[n]) {
+                model = n;
+                ret = true;
+            }
+        }
+        if (ret == false) {
+            S.printf("Error, must be : \n\r");
+            for (n = 0; n < NB_DYN_MODES; n++) {
+                S.printf("navmod %s\n\r", anchor->dynModelLst[n].c_str());
+            }
+        }        
+    }
+    p == anchor->dynModelLst[model];
+    anchor->configuration->begin("tracker", false);
+    S.printf("Dynamic Platform Model is %s\n\r", p.c_str());
+    anchor->configuration->putUChar("navmod", model);
+    anchor->configuration->end();
+}
+
 
 
 void Menu::_config_(ArgList& L, Stream& S) {
     anchor->configuration->begin("tracker", false);
-    S.printf("Call is                : %s\n\r",anchor->configuration->getString("call").c_str());
-    S.printf("Symbol is              : %c\n\r",anchor->configuration->getChar("symbol"));
-    S.printf("Frequency is           : %d\n\r",anchor->configuration->getLong("freq"));
-    S.printf("Transmit at second     : %d \n\r",anchor->configuration->getChar("second"));
-    S.printf("Battery measurement is : %s\n\r",anchor->configuration->getBool("setbat")? "Enable" : "Disable");
-    S.printf("Altitude is            : %s\n\r",anchor->configuration->getBool("setalt")? "Enable" : "Disable");
-    S.printf("Course/Speed is        : %s\n\r",anchor->configuration->getBool("setcs")? "Enable" : "Disable");
-    S.printf("Compression is         : %s\n\r",anchor->configuration->getBool("setcomp")? "Enable" : "Disable");
-    S.printf("Comment is             : %s\n\r",anchor->configuration->getString("comment").c_str());
-    
+    S.printf("Call is                   : %s\n\r",anchor->configuration->getString("call").c_str());
+    S.printf("Symbol is                 : %c\n\r",anchor->configuration->getChar("symbol"));
+    S.printf("Frequency is              : %d\n\r",anchor->configuration->getLong("freq"));
+    S.printf("Transmit at second        : %d \n\r",anchor->configuration->getChar("second"));
+    S.printf("Battery measurement is    : %s\n\r",anchor->configuration->getBool("setbat")? "Enable" : "Disable");
+    S.printf("Altitude is               : %s\n\r",anchor->configuration->getBool("setalt")? "Enable" : "Disable");
+    S.printf("Course/Speed is           : %s\n\r",anchor->configuration->getBool("setcs")? "Enable" : "Disable");
+    S.printf("Compression is            : %s\n\r",anchor->configuration->getBool("setcomp")? "Enable" : "Disable");
+    uint8_t  model=anchor->configuration->getUChar("navmod");
+    S.printf("Dynamic Platform Model is : ");
+    S.printf("%s \n\r",anchor->dynModelLst[model].c_str());
+    S.printf("Comment is                : %s\n\r",anchor->configuration->getString("comment").c_str());
     anchor->configuration->end();
 }
 
@@ -275,5 +317,11 @@ void Menu::_raz_(ArgList& L, Stream& S) {
     //anchor->configuration->clear();  
     ESP.restart();
 }
+
+
+String Menu::getDynModName(uint8_t model){
+    return dynModelLst[model];
+}
+
 
 Menu* Menu::anchor = NULL;

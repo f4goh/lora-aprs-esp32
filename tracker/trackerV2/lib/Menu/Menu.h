@@ -13,7 +13,7 @@
 
 #define FREQUENCY 433775000
 #define TIMEOUT_MENU 10
-
+#define NB_DYN_MODES 10
 
 class Menu {
     
@@ -24,7 +24,9 @@ public:
     
     void run();
     void setup();
+    String getDynModName(uint8_t model);
 
+ private:
     // Méthodes associées aux commandes
     static void _call_(ArgList& L, Stream& S);
     static void _second_(ArgList& L, Stream& S);
@@ -37,18 +39,17 @@ public:
     static void _setcomp_(ArgList& L, Stream& S);
     static void _config_(ArgList& L, Stream& S);
     static void _raz_(ArgList& L, Stream& S);
-   static void _exit_(ArgList& L, Stream& S);
+    static void _exit_(ArgList& L, Stream& S);
     static void _help_(ArgList& L, Stream& S);
     static void _unknown(String& L, Stream& S);
-
- private:
+    static void _navmod_(ArgList& L, Stream& S);
     
     bool exitFlag;
     Console *con;
     Preferences *configuration;
-    static Menu* anchor;
+    static Menu* anchor;    
     bool acceptCmd(String cmd, int longMin, int longMax);
-    
+    String dynModelLst[NB_DYN_MODES];
 };
 
 #endif /* MENU_H */
