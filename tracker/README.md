@@ -56,7 +56,7 @@ Available commands
 Set new callsign                            : call f4goh-6
 Set frequency                               : freq 433775000
 Set car symbol                              : symbol >
-Set second txing                            : second 20
+Set second txing into the minute            : second 20
 Set new comment                             : comment hello
 Set Battery measurement in comment (0 or 1) : setbat 1
 Set altitude feild in pdu (0 or 1)          : setalt 1
@@ -72,9 +72,12 @@ Set dynamic Platform Model                  : navmod portable
                                               navmod airborne4g
                                               navmod wrist
                                               navmod bike
+Set SMS (0 :disable, 1 :google, 2 :locator) : setsms 1
+Set SMS minutes txing interval              : setsmsmin 15
+Set SMS phone numer                         : setsmsph +336xxxxxxxx
 Show configuration                          : show
 Reset default configuration                 : raz
-Exit menu                                   : exit
+Exit menu        							: exit
 >show
 Call is                   : f4goh-9
 Symbol is                 : b
@@ -82,18 +85,26 @@ Frequency is              : 433775000
 Transmit at second        : 20
 Battery measurement is    : Enable
 Altitude is               : Enable
-Course/Speed is           : Enable
+Course/Speed is           : Disable
 Compression is            : Disable
 Dynamic Platform Model is : airborne1g
+SMS feature is            : Google place URL
+SMS minute interval is    : 2
+SMS phone is              : +336xxxxxxxx
+Compression is            : Disable
 Comment is                : hello
 >exit
->
- Console exit
+Console exit
 Dynamic platform model changed successfully!
 The new dynamic model is: airborne1g
 09:00:20
 f4goh-9>APLT00,WIDE1-1:!4753.41N/00016.61Eb000/000/A=000249Bat:3.89V/585mA
 09:00:24
 09:00:25
+...
+08:44:56
+JN07DV33
+F4GOH-9>APLT00,WIDE1-1::SMSGTE   :@+336xxxxxxxx https://www.google.fr/maps/place/47.8902,0.2768{18
+08:45:01
 ```
 
