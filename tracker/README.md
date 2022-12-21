@@ -77,7 +77,7 @@ Set SMS minutes txing interval              : setsmsmin 15
 Set SMS phone numer                         : setsmsph +336xxxxxxxx
 Show configuration                          : show
 Reset default configuration                 : raz
-Exit menu        							: exit
+Exit menu                                   : exit
 >show
 Call is                   : f4goh-9
 Symbol is                 : b
