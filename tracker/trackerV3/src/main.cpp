@@ -90,11 +90,9 @@ SFE_UBLOX_GPS myGPS;
 
 Position pos("F4KMN-7","APLT00","WIDE1-1",48.010237, 0.206267, "Ballon", '/', 'O'); // icon ballon
 
-Message mes("F4GOH-9","APLT00","WIDE1-1","+33695979933");
-//Message mes("F4GOH-9","APLT00","WIDE1-1","+33689744235");
+Message mes("F4GOH-9","APLT00","WIDE1-1","+336xxxxxxxx");
 
 bool smsFlag;  //evite de d'envoyer plusieurs fois la trame dans la meme minute
-
 
 
 static bool lectureGPS(unsigned long ms);

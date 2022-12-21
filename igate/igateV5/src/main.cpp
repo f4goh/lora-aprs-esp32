@@ -27,12 +27,7 @@
  * installation : pio lib install 2978
  * 
  * 
-  12443
- 4753.41N
- 00016.61E
- LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32
- wifijohan
- 4u4w9dkf8
+  LoRa iGATE : https://github.com/f4goh/lora-aprs-esp32
  * 
  *  
  */
