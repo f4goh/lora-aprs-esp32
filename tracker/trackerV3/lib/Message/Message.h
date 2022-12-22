@@ -37,7 +37,7 @@ public:
     void setPosition(float _latitude, float _longitude);
     void setComment(String _comment);
     void setPhone(String _phone);
-    
+    void setCallsign(String _callsign);
     
     
 private:

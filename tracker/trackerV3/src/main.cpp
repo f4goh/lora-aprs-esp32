@@ -90,9 +90,11 @@ SFE_UBLOX_GPS myGPS;
 
 Position pos("F4KMN-7","APLT00","WIDE1-1",48.010237, 0.206267, "Ballon", '/', 'O'); // icon ballon
 
-Message mes("F4GOH-9","APLT00","WIDE1-1","+336xxxxxxxx");
+Message mes("F4KMN-9","APLT00","WIDE1-1","+33695979933");
+//Message mes("F4GOH-9","APLT00","WIDE1-1","+33689744235");
 
 bool smsFlag;  //evite de d'envoyer plusieurs fois la trame dans la meme minute
+
 
 
 static bool lectureGPS(unsigned long ms);
@@ -139,6 +141,7 @@ void setup() {
   pos.setSymbol(configuration.getChar("symbol"));    
   //second=(int8_t) configuration.getChar("second");
   mes.setPhone(configuration.getString("smsphone"));
+  mes.setCallsign(configuration.getString("call"));
   
   if (myGPS.begin(serialGps) == true) //Connect to the Ublox module using serial
   {
@@ -174,12 +177,10 @@ void checkPdu() {
     }
 }
 
-
-
 void loop() {
     esp_task_wdt_reset();
     checkPdu();
-    
+
     // display time and sync txing
     if (lectureGPS(1000)) {
         digitalWrite(LED, digitalRead(LED)^1);
@@ -192,29 +193,26 @@ void loop() {
             Serial.print(F(":"));
             if (gps.time.second() < 10) Serial.print(F("0"));
             Serial.println(gps.time.second());
-
-            if (gps.time.second() == configuration.getChar("second")) {  //position
-            //if (gps.time.second()%15 == 0) {
-                if (gps.location.isValid()) {
-                    checkBattery();
-                    sendLoraPosition();
+            if (gps.location.isValid()) {
+                if (gps.time.second() == configuration.getChar("second")) { //position
+                    //if (gps.time.second()%15 == 0) {
+                        checkBattery();
+                        sendLoraPosition();
+                }
+                if (configuration.getUChar("sms") > 0 && smsFlag == false) { //sms
+                    if (gps.time.minute() % configuration.getChar("smsmin") == 0) {
+                        sendLoraSms();
+                        smsFlag = true;
+                    }
+                }
+                if (smsFlag == true && gps.time.minute() % configuration.getChar("smsmin") != 0) { //flipflop sms
+                    smsFlag = false;
                 }
             }
-            if (configuration.getUChar("sms") > 0 && smsFlag==false) {  //sms
-                if (gps.time.minute()%configuration.getChar("smsmin")==0) {                    
-                    sendLoraSms();
-                    smsFlag=true;                    
-                }
-            }
-            if (smsFlag==true && gps.time.minute()%configuration.getChar("smsmin")!=0){ //flipflop sms
-                smsFlag=false;
-            }
+        } else {
+            Serial.println(F("Wait fix GPS"));
         }
-        else{
-            Serial.println(F("Wait fix GPS")); 
-        }
-
-    }     
+    }
 }
 
 // build APRS comment data if setbat enable otherwise comment default

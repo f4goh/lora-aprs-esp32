@@ -50,6 +50,11 @@ void Message::setPhone(String _phone){
     phone=_phone;
 }
 
+void Message::setCallsign(String _callsign){
+  callsign=_callsign;  
+}
+
+
 char* Message::getPduSMS(msgMode mode){
     String header;
     int     messageId;    
