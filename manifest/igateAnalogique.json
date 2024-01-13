@@ -1,0 +1,17 @@
+{
+  "name": "igateAnalogique",
+  "version": "2024.1.0-dev",
+  "home_assistant_domain": "esp32 aprs",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",      
+      "parts": [
+        { "path": "../firmwares/igateAnalogique/boot.bin", "offset": 57344 },
+		{ "path": "../firmwares/igateAnalogique/bootloader.bin", "offset": 4096 },
+        { "path": "../firmwares/igateAnalogique/partitions.bin", "offset": 32768 },
+        { "path": "../firmwares/igateAnalogique/ESP32IGate_V11_OLED.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
